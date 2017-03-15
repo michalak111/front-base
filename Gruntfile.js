@@ -6,18 +6,23 @@ module.exports = function(grunt) {
   grunt.initConfig({
     banner: " /* Jan Michalak */\n",
 
+    project: {
+      app: "src",
+      assets: "<%= project.app %>/assets",
+    },
+
     uglify:{
       options: {
         mangle:true,
       },
 
       main: {
-        src: "src/assets/js/source/main.js",
-        dest: "src/assets/js/main.min.js"
+        src: "<%= project.assets %>/js/source/main.js",
+        dest: "<%= project.assets %>/js/main.min.js"
       },
       vendor : {
-        src: "src/assets/js/source/vendor.js",
-        dest: "src/assets/js/vendor.min.js"
+        src: "<%= project.assets %>/js/source/vendor.js",
+        dest: "<%= project.assets %>/js/vendor.min.js"
       }
     },
     jshint: {
@@ -27,7 +32,7 @@ module.exports = function(grunt) {
       },
 
       target: {
-        src: "src/assets/js/source/main.js",
+        src: "<%= project.assets %>/js/source/main.js",
       }
     },
 
@@ -39,9 +44,9 @@ module.exports = function(grunt) {
 
       target: {
         src:[
-          "src/assets/js/source/vendor/jquery-3.1.0.min.js",
+          "<%= project.assets %>/js/source/vendor/jquery-3.1.0.min.js",
         ],
-        dest: "src/assets/js/source/vendor.js",
+        dest: "<%= project.assets %>/js/source/vendor.js",
       }
     },
 
@@ -51,7 +56,7 @@ module.exports = function(grunt) {
           style: 'expanded'
         },
         files: {
-          'src/assets/css/styles.css': 'src/assets/css/source/styles.scss',
+          "<%= project.assets %>/css/styles.css": "<%= project.assets %>/css/source/styles.scss",
         }
       }
     },
@@ -59,8 +64,8 @@ module.exports = function(grunt) {
     watch: {
       source:{
         files: [
-          'src/assets/js/source/main.js',
-          'src/assets/css/source/{,*/}*.scss'
+          "<%= project.assets %>/js/source/main.js",
+          "<%= project.assets %>/css/source/{,*/}*.scss"
         ],
         tasks: ['jshint', 'sass'],
         options: {
